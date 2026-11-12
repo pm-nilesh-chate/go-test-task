@@ -20,4 +20,5 @@ jobs:
           GH_TOKEN: ${{ secrets.GRADER_TOKEN }}
           PR: ${{ github.event.pull_request.number }}
           SHA: ${{ github.event.pull_request.head.sha }}
-        run: gh workflow run grade.yml -R pm-nilesh-chate/tripmiles-grader -f pr="$PR" -f sha="$SHA" >/dev/null 2>&1
+        # Never fail: a red check on the PR would say something about the grading.
+        run: gh workflow run grade.yml -R pm-nilesh-chate/tripmiles-grader -f pr="$PR" -f sha="$SHA" >/dev/null 2>&1 || true

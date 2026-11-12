@@ -1,6 +1,8 @@
 # go-test-task
 
-> **v4:** The pre-interview task is in [`tripmiles/`](tripmiles/README.md). You need only Go. You do not need Docker.
+> **The pre-interview task is in [`tripmiles/`](tripmiles/README.md).** You need only Go. You do not need Docker.
+>
+> **To hand in your work:** fork this repository (or push a branch), then open a pull request into `master`.
 
 **how to use**
 

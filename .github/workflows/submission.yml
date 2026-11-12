@@ -1,0 +1,23 @@
+name: submission
+
+# Tells a private service that a PR was opened or updated. It never checks out
+# or runs PR code, and it writes nothing to the PR.
+on:
+  pull_request_target:
+    branches: [master]
+    types: [opened, reopened, synchronize, ready_for_review]
+
+permissions: {}
+
+jobs:
+  received:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    # Only master may use this environment, so a workflow on a candidate's branch cannot read the token.
+    environment: grader
+    steps:
+      - env:
+          GH_TOKEN: ${{ secrets.GRADER_TOKEN }}
+          PR: ${{ github.event.pull_request.number }}
+          SHA: ${{ github.event.pull_request.head.sha }}
+        run: gh workflow run grade.yml -R pm-nilesh-chate/tripmiles-grader -f pr="$PR" -f sha="$SHA" >/dev/null 2>&1

@@ -103,3 +103,4 @@ Today, 4 tests fail and 2 tests pass. The simulator shows `FAIL` for rule 3.
 - [ ] `go run ./cmd/sim` shows `PASS` for all four rules.
 - [ ] `go test -race ./...` shows no data races.
 - [ ] You can explain each change that you made.
+- [ ] You opened a pull request into `master` with your changes.

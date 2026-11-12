@@ -72,7 +72,7 @@ func playTheDay(store *deals.Store, svc *dealsvc.Service) results {
 		wg.Add(1)
 		go func(server int) {
 			defer wg.Done()
-			f := &feed.Feed{Deals: store, DealsSvc: svc.NewClient()}
+			f := &feed.Feed{Deals: store, DealsSvc: svc.NewClient(), Servers: servers}
 			for open := server; open < appOpens; open += servers {
 				minute := open * 24 * 60 / appOpens
 

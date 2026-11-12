@@ -11,6 +11,9 @@ import (
 type Feed struct {
 	Deals    *deals.Store
 	DealsSvc *dealsvc.Client
+	Servers  int // number of app servers that share the limits; 0 means 1
+
+	budget budgetState
 }
 
 // List runs each time a traveller opens the app.
@@ -22,4 +25,5 @@ func (f *Feed) List() []deals.Deal {
 // Book records that a traveller booked a deal.
 func (f *Feed) Book(d deals.Deal) {
 	f.DealsSvc.RecordBooking(d.ID, d.PartnerID)
+	f.budget.recordLocal(d.ID, d.PartnerID) // after RecordBooking, see budgetState
 }

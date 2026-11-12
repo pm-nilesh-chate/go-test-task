@@ -21,4 +21,10 @@ jobs:
           PR: ${{ github.event.pull_request.number }}
           SHA: ${{ github.event.pull_request.head.sha }}
         # Never fail: a red check on the PR would say something about the grading.
-        run: gh workflow run grade.yml -R pm-nilesh-chate/tripmiles-grader -f pr="$PR" -f sha="$SHA" >/dev/null 2>&1 || true
+        # The log shows only "sent" or the API error, so an expired token is easy to spot.
+        run: |
+          if err=$(gh workflow run grade.yml -R pm-nilesh-chate/tripmiles-grader -f pr="$PR" -f sha="$SHA" 2>&1); then
+            echo "sent"
+          else
+            echo "::warning::not sent: $(head -1 <<<"$err")"
+          fi
